@@ -19,6 +19,10 @@ echo "extracting exheader..."
 echo "extracting romfs..."
 ./tools/ctrtool --romfsdir="$OUTDIR/romfs" "baserom.3ds" > /dev/null || invalid_file
 
+echo "creating baserom.rsf..."
+cp tools/dummy.rsf $OUTDIR/baserom.rsf
+python tools/rsfgen.py -r baserom.3ds -e $OUTDIR/exheader.bin -o $OUTDIR/baserom.rsf
+
 echo "creating baserom.elf..."
 if [ ! -d "$OUTDIR/workdir" ]; then
 	mkdir "$OUTDIR/workdir"
